@@ -3,3 +3,6 @@ Hello {!$User.FirstName}!
 <p>You are viewing the {!account.name} account.</p>
 <apex:detail />
 </apex:page>
+
+<!-- Only display of Object and related fields (Replace Case) -->
+<apex:page action="{!URLFOR($Action.Case.List, $ObjectType.Case)}"/>
