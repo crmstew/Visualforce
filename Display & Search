@@ -8,6 +8,7 @@ Hello {!$User.FirstName}!
 <apex:page action="{!URLFOR($Action.Case.List, $ObjectType.Case)}"/>
 
 <!--Display Parent & Child Records -->
+<!--Option 1 -->
 <apex:page standardController="Account">
 <apex:pageBlock title="Hello {!$User.FirstName}!">
 You are displaying values from the {!account.name} account and a separate contact
@@ -28,6 +29,33 @@ that is specified by a query string parameter.
 <apex:detail subject="{!$CurrentPage.parameters.cid}" relatedList="false" title="false"/>
 </apex:page>
 <!-- The ?id=ParentID&id=ChildID -->
+
+<!-- Option 2 -- Onclick of Child Record>
+<apex:page standardController="Account">
+<apex:pageBlock title="Hello {!$User.FirstName}!">
+You are displaying contacts from the {!account.name} account.
+Click a contact's name to view his or her details.
+</apex:pageBlock>
+<apex:pageBlock title="Contacts">
+<apex:form >
+<apex:dataTable value="{!account.Contacts}" var="contact" cellPadding="4"
+border="1">
+<apex:column >
+<apex:facet name="header">Name</apex:facet>
+<apex:commandLink >
+{!contact.Name}
+<apex:param name="cid" value="{!contact.id}"/>
+</apex:commandLink>
+</apex:column>
+<apex:column >
+<apex:facet name="header">Phone</apex:facet>
+{!contact.Phone}
+</apex:column>
+</apex:dataTable>
+</apex:form>
+</apex:pageBlock>
+<apex:detail subject="{!$CurrentPage.parameters.cid}" relatedList="false" title="false"/>
+</apex:page>
 
 <!-- Display cases in a Dashboard - Include this VF as a DB Component -->
 <apex:page standardController="Case" recordSetvar="cases">
