@@ -1,0 +1,4 @@
+<!-- Add Milestone Tracker to Case -->
+<apex:page standardController="Case" showHeader="true">
+<apex:milestoneTracker entityId="{!case.id}"/>
+</apex:page>
