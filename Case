@@ -2,3 +2,39 @@
 <apex:page standardController="Case" showHeader="true">
 <apex:milestoneTracker entityId="{!case.id}"/>
 </apex:page>
+
+
+<!--Create a child record to Case && Change record type -->
+{!REQUIRESCRIPT("/soap/ajax/31.0/connection.js")}
+{!REQUIRESCRIPT("/soap/ajax/31.0/apex.js")}
+
+var caseObj = new sforce.SObject("Case"); 
+var RMAObj = new sforce.SObject("RMA_Return__c");
+var newRecords = [];
+
+//Update the Case details
+
+caseObj.Id = '{!Case.Id}'; 
+caseObj.RecordTypeId = '012e00000000qB4';
+caseObj.OwnerId = '00Ge0000000vdmF'; 
+
+
+//Update the RMA Object
+
+RMAObj.Case__c = caseObj.Id;
+RMAObj.Serial_Number__c = 'B4C7996C8860';
+RMAObj.Product_Name__c = 'NX-9500-100R0-WR';
+
+
+newRecords.push(RMAObj);
+
+var result = sforce.connection.update([caseObj]);
+result = sforce.connection.create(newRecords);
+
+
+
+if (result[0].success =='false') { 
+    alert (result[0].errors.message); 
+} else { 
+    location.reload(true);
+}
