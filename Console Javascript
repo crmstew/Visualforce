@@ -1,0 +1,26 @@
+<!--Script for Opening SubTab -->
+ <script type="text/javascript"> 
+ 
+            var closeSubtab = function closeSubtab(result) { 
+            var tabId = result.id;   
+            //close Product Details tab          
+            sforce.console.closeTab(tabId); 
+            //refreshPrimaryTab(); 
+            window.top.location='/console'
+            
+            } 
+        
+            function closeTab() {
+            sforce.console.getEnclosingTabId(closeSubtab); 
+            } 
+
+            function cancelTab() {
+            sforce.console.getEnclosingTabId(cancelSubtab);
+            }
+            
+            var cancelSubtab = function cancelSubtab(result) { 
+            var tabId = result.id;   
+            //cancel Product Details tab          
+            sforce.console.closeTab(tabId); 
+            } 
+        </script>
